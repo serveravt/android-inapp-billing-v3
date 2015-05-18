@@ -1,13 +1,11 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
-
 group 'com.anjlab.android.iab.v3'
 version '1.0.24'
-
 android {
     compileSdkVersion 8
-    buildToolsVersion '21.1.2'
+    buildToolsVersion '22.0.1'
 
     defaultConfig {
         versionCode 1
@@ -22,31 +20,26 @@ android {
         aidl.srcDir 'src'
     }
 }
-
 configurations.archives.extendsFrom configurations.default
-
 signing {
     required { has("release") && gradle.taskGraph.hasTask("uploadArchives") }
     sign configurations.archives
 }
-
 task androidJavadocs(type: Javadoc) {
     source = 'src/main/java'
 }
-
 task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
     classifier = 'javadoc'
     from androidJavadocs.destinationDir
 }
-
 task androidSourcesJar(type: Jar) {
     classifier = 'sources'
     from 'src/main/java'
 }
-
 artifacts {
     archives androidSourcesJar
     archives androidJavadocsJar
 }
 
-
+dependencies {
+}
